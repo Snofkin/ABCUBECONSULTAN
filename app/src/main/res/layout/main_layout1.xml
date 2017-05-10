@@ -12,10 +12,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:scrollbarAlwaysDrawHorizontalTrack="false"
-        android:scrollbarAlwaysDrawVerticalTrack="true">
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -43,15 +44,15 @@
                     tools:context="com.example.amir.abcube.Camera">
 
                     <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="300dp"
                         android:id="@+id/imageview"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/ic_launcher_round"/>
+                        android:layout_width="300dp"
+                        android:layout_height="200dp"
+                        android:layout_alignParentEnd="true"
+
+                        />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/imageview"
                         android:gravity="center_horizontal"
                         android:orientation="horizontal">
 
@@ -77,6 +78,7 @@
                             android:theme="@style/AppTheme.Button" />
 
                     </LinearLayout>
+
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -105,6 +107,8 @@
                     android:text="PERSONAL DETAILS"
                     android:textSize="18sp"
                     android:typeface="sans" />
+
+
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -116,7 +120,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-android:background="#4bb2a9"
+
                 android:elevation="@dimen/cardview_default_elevation"
                 card_view:cardCornerRadius="2dp"
                 card_view:cardElevation="6dp">
@@ -143,8 +147,10 @@ android:background="#4bb2a9"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
 
+                            android:layout_weight="1"
                             android:inputType="text"
                             tools:layout_marginLeft="30dp" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -186,7 +192,7 @@ android:background="#4bb2a9"
                             tools:layout_marginLeft="30dp" />
                     </LinearLayout>
 
-                    <LinearLayout
+                    <FrameLayout
                         android:id="@+id/linear4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -199,15 +205,15 @@ android:background="#4bb2a9"
                             android:text="Date of Birth" />
 
 
-                        <EditText
-                            android:id="@+id/dob"
-                            android:layout_width="match_parent"
+                        <DatePicker
+                            android:id="@+id/simpleDatePicker"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:inputType="datetime|date"
-                            android:focusable="false"
-                            android:onClick="onDateEditTextClicked"/>
+                            android:datePickerMode="spinner"/>
 
-                    </LinearLayout>
+
+
+                    </FrameLayout>
 
                     <LinearLayout
                         android:id="@+id/linear5"
@@ -285,7 +291,6 @@ android:background="#4bb2a9"
                             android:id="@+id/nationality"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="20dp"
                             android:inputType="text"
                             tools:layout_marginLeft="30dp" />
                     </LinearLayout>
@@ -305,20 +310,23 @@ android:background="#4bb2a9"
                             android:text="Gender" />
 
                         <RadioGroup
-                            android:id="@+id/radiobtn"
+                            android:id="@+id/radio"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:checkedButton="@+id/male">
+                            android:layout_height="wrap_content">
 
                             <RadioButton
-                                android:id="@+id/male" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="RadioButtonClicked"
-                                android:text="Male" tools:layout_marginLeft="30dp" />
+                                android:id="@+id/male"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="Male"
+                                android:enabled="true"
+                                tools:layout_marginLeft="30dp" />
 
                             <RadioButton
                                 android:id="@+id/female"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:onClick="RadioButtonClicked"
                                 android:text="Female"
                                 tools:layout_marginLeft="30dp" />
 
@@ -339,8 +347,13 @@ android:background="#4bb2a9"
 
                         <Spinner
                             android:id="@+id/spinner"
-                            android:layout_width="200dp"
-                           android:layout_height="wrap_content" />
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                             />
+                        <EditText
+                            android:id="@+id/status"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
@@ -394,18 +407,15 @@ android:background="#4bb2a9"
 
                         <TextView
                             android:layout_width="110dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="26dp"
                             android:text="Passport Expiry" />
 
                         <EditText
                             android:id="@+id/pass_expiry"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                            android:textSize="24sp"
-                            android:textStyle="bold"
-                            android:typeface="monospace" />
+                            android:inputType="date"
+                            tools:layout_marginLeft="30dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -487,7 +497,7 @@ android:background="#4bb2a9"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:padding="40dp"
-                card_view:cardBackgroundColor="#aa4e4f"
+                card_view:cardBackgroundColor="#ffffff"
                 card_view:cardCornerRadius="2dp"
                 card_view:cardElevation="8dp">
 
@@ -524,13 +534,16 @@ android:background="#4bb2a9"
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:text="Date of Test" />
+                            android:text="Date of Test"
+                            />
 
                         <EditText
                             android:id="@+id/testdate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="20dp"
+                            android:autoText="true"
+                            android:hint="yyyy-mm-dd"
                             android:inputType="date"
                             android:paddingLeft="20dp" />
                     </LinearLayout>
@@ -690,7 +703,7 @@ android:background="#4bb2a9"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:padding="20dp"
-                card_view:cardBackgroundColor="#ad8c55"
+                card_view:cardBackgroundColor="#ffffff"
                 card_view:cardCornerRadius="2dp"
 
 
@@ -774,7 +787,7 @@ android:background="#4bb2a9"
                                 android:text="Year of Award" />
 
                             <EditText
-                                android:id="@+id/schoolaward"
+                                android:id="@+id/schoolyear"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="text|date"
@@ -854,7 +867,7 @@ android:background="#4bb2a9"
                                 android:text="Year of Award" />
 
                             <EditText
-                                android:id="@+id/highscchoolaward"
+                                android:id="@+id/highscchoolyear"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="date"
@@ -1064,7 +1077,7 @@ android:background="#4bb2a9"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:padding="20dp"
-                card_view:cardBackgroundColor="#537171"
+                card_view:cardBackgroundColor="#ffccff"
                 card_view:cardCornerRadius="2dp"
 
                 card_view:cardElevation="5dp">
@@ -1087,12 +1100,14 @@ android:background="#4bb2a9"
                             android:layout_height="wrap_content"
                             android:text="Name of Contact" />
 
+
+
                         <EditText
                             android:id="@+id/contactname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
-                             />
+                            android:password="false" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -1167,22 +1182,28 @@ android:background="#4bb2a9"
                         <EditText
                             android:id="@+id/emailaddress"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"  />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/button_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/email_layout">
-
-                        <Button
-                            android:id="@+id/submit"
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="submit" />
+                            android:inputType="textEmailAddress|textWebEmailAddress" />
+
+
                     </LinearLayout>
+
+
+
+
                 </RelativeLayout>
+
             </android.support.v7.widget.CardView>
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:layout_below="@+id/cardview3"
+                android:layout_centerHorizontal="true" />
+
         </RelativeLayout>
+
     </ScrollView>
+
 </RelativeLayout>
