@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Base64;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -46,8 +47,9 @@ import java.util.Map;
 
 
 public class main1 extends AppCompatActivity implements View.OnClickListener {
-    String server_url = "http://192.168.0.103/adcube/android.php";
+    String server_url = "http://192.168.0.111/adcube/android.php";
     ImageView ImageView;
+    ViewGroup viewGroup;
     Button buttonCamera, buttonGallery;
     File file;
     Uri uri;
@@ -65,15 +67,15 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
     Button Submit;
     RadioButton Gender;
 
-    EditText fromDateEtxt,toDateEtxt;
+    EditText fromDateEtxt, toDateEtxt;
     DatePickerDialog fromDatePickerDialog;
     DatePickerDialog toDatePickerDialog;
     DatePickerDialog tovisagrantedDialog;
     DatePickerDialog topassexpiry;
-    DatePickerDialog totestdate,tosyear,tohyear,tobyear,tomyear;
+    DatePickerDialog totestdate, tosyear, tohyear, tobyear, tomyear;
 
 
-    SimpleDateFormat dateFormatter,dateFormatter2;
+    SimpleDateFormat dateFormatter, dateFormatter2;
     //educational background
     EditText Schoolname, Schoolmarks, Schoolyear,
             Highschoolname, Highschoolmarks, Highschoolyear,
@@ -155,7 +157,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
                 fromDateEtxt.setText(dateFormatter.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         toDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -165,7 +167,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
                 toDateEtxt.setText(dateFormatter.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         tovisagrantedDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -175,7 +177,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
                 Visa_Granted.setText(dateFormatter.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         topassexpiry = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -185,7 +187,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
                 Pass_expiry.setText(dateFormatter.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         totestdate = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -195,7 +197,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
                 Testdate.setText(dateFormatter.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         tosyear = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -205,7 +207,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
                 Schoolyear.setText(dateFormatter2.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         tohyear = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -215,7 +217,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
                 Highschoolyear.setText(dateFormatter2.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         tobyear = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -225,7 +227,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
                 Bacheloryear.setText(dateFormatter2.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         tomyear = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -235,7 +237,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
                 Masteryear.setText(dateFormatter2.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
 
         //for spinner
@@ -376,8 +378,58 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void submitall() {
+        Firstname.setText("");
+        Lastname.setText("");
+        Country.setText("");
+        City.setText("");
+        Email.setText("");
+        Personal_Email.setText("");
+        Phone.setText("");
+        Phone_no.setText("");
+        Course.setText("");
+        Nationality.setText("");
+        Citizenship.setText("");
+        Passport_no.setText("");
+        Pass_expiry.setText("");
+        Visa_no.setText("");
+        Visa_Granted.setText("");
+        toDateEtxt.setText("");
+
+        samplespinner.setSelection(0);
+        Testname.setText("");
+        Testdate.setText("");
+        Testreport.setText("");
+        Overallresult.setText("");
+        Reading.setText("");
+        Writing.setText("");
+        Listening.setText("");
+        Speaking.setText("");
+        Schoolname.setText("");
+        Schoolmarks.setText("");
+        Schoolyear.setText("");
+        Highschoolname.setText("");
+        Highschoolmarks.setText("");
+        Highschoolyear.setText("");
+        Bachelorname.setText("");
+        Bachelormarks.setText("");
+        Bacheloryear.setText("");
+        Mastername.setText("");
+        Mastermarks.setText("");
+        Masteryear.setText("");
+        Name.setText("");
+        Relationship.setText("");
+        Address.setText("");
+        Phone_no.setText("");
+        Email.setText("");
+
+
+
+
+
+
+
         final String first_name, last_name, country, city, dob, personal_email, course, citizenship, nationality, pass_no,
-                visa_no, visa_expiry, phone_no, contact, address, email, phone, relation, pass_expiry, gender, image, visa_grant,ephone;
+                visa_no, visa_expiry, phone_no, contact, address, email, phone, relation, pass_expiry, gender, image, visa_grant, ephone;
 
 
 //for mail validation defining pattern
@@ -534,6 +586,28 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
             }
         };
         Mysingleton.getInstance(main1.this).addToRequest(stringRequest);
+    }
+
+    public static void resetForm(ViewGroup group) {
+        {
+            for (int i = 0, count = group.getChildCount(); i < count; ++i) {
+                View view = group.getChildAt(i);
+                if (view instanceof EditText) {
+                    ((EditText) view).getText().clear();
+                }
+
+                if (view instanceof RadioGroup) {
+                    ((RadioButton) ((RadioGroup) view).getChildAt(0)).setChecked(true);
+                }
+
+                if (view instanceof Spinner) {
+                    ((Spinner) view).setSelection(0);
+                }
+
+                if (view instanceof ViewGroup && (((ViewGroup) view).getChildCount() > 0))
+                    resetForm((ViewGroup) view);
+            }
+        }
     }
 
     /**
