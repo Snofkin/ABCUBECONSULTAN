@@ -1,5 +1,6 @@
 package com.example.amir.abcubefinal;
 
+import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -10,6 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,17 +37,21 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
 public class main1 extends AppCompatActivity implements View.OnClickListener {
-    String server_url = "http://192.168.0.106/adcube/android.php";
+    String server_url = "http://192.168.0.103/adcube/android.php";
     ImageView ImageView;
     Button buttonCamera, buttonGallery;
     File file;
     Uri uri;
+    String date;
     Intent CamIntent, GalIntent, CropIntent;
     public Bitmap bitmap;
     //for spinner
@@ -54,12 +60,20 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
     String Selecteditem;
 
     //personal details
-    EditText Firstname, Lastname, Country, Personal_Email, Phone, Course, Nationality, Citizenship, Passport_no, Visa_no,Pass_expiry, Visa_expiry;
+    EditText Firstname, Lastname, Country, Personal_Email, Phone, Course, Nationality, Citizenship, Passport_no, Visa_no, Pass_expiry, Visa_expiry, City, Visa_Granted;
     DatePicker Dob;
     Button Submit;
     RadioButton Gender;
 
+    EditText fromDateEtxt,toDateEtxt;
+    DatePickerDialog fromDatePickerDialog;
+    DatePickerDialog toDatePickerDialog;
+    DatePickerDialog tovisagrantedDialog;
+    DatePickerDialog topassexpiry;
+    DatePickerDialog totestdate,tosyear,tohyear,tobyear,tomyear;
 
+
+    SimpleDateFormat dateFormatter,dateFormatter2;
     //educational background
     EditText Schoolname, Schoolmarks, Schoolyear,
             Highschoolname, Highschoolmarks, Highschoolyear,
@@ -78,6 +92,151 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout1);
+
+
+        //for date picker
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        dateFormatter2 = new SimpleDateFormat("yyyy", Locale.US);
+
+        findViewsById();
+
+        setDateTimeField();
+    }
+
+    public void findViewsById() {
+        fromDateEtxt = (EditText) findViewById(R.id.date);
+        fromDateEtxt.setInputType(InputType.TYPE_NULL);
+        fromDateEtxt.requestFocus();
+
+        toDateEtxt = (EditText) findViewById(R.id.visa_expiry);
+        toDateEtxt.setInputType(InputType.TYPE_NULL);
+
+        Visa_Granted = (EditText) findViewById(R.id.visa_grant);
+        Visa_Granted.setInputType(InputType.TYPE_NULL);
+
+        Pass_expiry = (EditText) findViewById(R.id.pass_expiry);
+        Pass_expiry.setInputType(InputType.TYPE_NULL);
+
+        Testdate = (EditText) findViewById(R.id.testdate);
+        Testdate.setInputType(InputType.TYPE_NULL);
+
+        Schoolyear = (EditText) findViewById(R.id.schoolyear);
+        Schoolyear.setInputType(InputType.TYPE_NULL);
+
+        Highschoolyear = (EditText) findViewById(R.id.highscchoolyear);
+        Highschoolyear.setInputType(InputType.TYPE_NULL);
+
+        Bacheloryear = (EditText) findViewById(R.id.bacheloryear);
+        Bacheloryear.setInputType(InputType.TYPE_NULL);
+
+        Masteryear = (EditText) findViewById(R.id.masteryear);
+        Masteryear.setInputType(InputType.TYPE_NULL);
+
+    }
+
+    public void setDateTimeField() {
+        fromDateEtxt.setOnClickListener(this);
+        toDateEtxt.setOnClickListener(this);
+        Visa_Granted.setOnClickListener(this);
+        Pass_expiry.setOnClickListener(this);
+        Testdate.setOnClickListener(this);
+        Schoolyear.setOnClickListener(this);
+        Highschoolyear.setOnClickListener(this);
+        Bacheloryear.setOnClickListener(this);
+        Masteryear.setOnClickListener(this);
+
+
+        Calendar newCalendar = Calendar.getInstance();
+        fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                fromDateEtxt.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        toDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                toDateEtxt.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        tovisagrantedDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                Visa_Granted.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        topassexpiry = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                Pass_expiry.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        totestdate = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                Testdate.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        tosyear = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                Schoolyear.setText(dateFormatter2.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        tohyear = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                Highschoolyear.setText(dateFormatter2.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        tobyear = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                Bacheloryear.setText(dateFormatter2.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        tomyear = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                Masteryear.setText(dateFormatter2.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
 
         //for spinner
         ArrayAdapter sampleadapter;//Assigning a name for ArrayAdapter
@@ -119,22 +278,19 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
-
         //personal details
         ImageView = (ImageView) findViewById(R.id.imageview);
         Firstname = (EditText) findViewById(R.id.firstname);
         Lastname = (EditText) findViewById(R.id.lastname);
         Country = (EditText) findViewById(R.id.country);
+        City = (EditText) findViewById(R.id.city);
         Personal_Email = (EditText) findViewById(R.id.email);
         Phone = (EditText) findViewById(R.id.mobile);
         Course = (EditText) findViewById(R.id.course);
-        Pass_expiry = (EditText) findViewById(R.id.pass_expiry);
         Nationality = (EditText) findViewById(R.id.nationality);
         Citizenship = (EditText) findViewById(R.id.citizenship);
         Passport_no = (EditText) findViewById(R.id.pass_no);
         Visa_no = (EditText) findViewById(R.id.visa_no);
-        Visa_expiry = (EditText) findViewById(R.id.visa_expiry);
-        Dob = (DatePicker) findViewById(R.id.simpleDatePicker);
 
 
         //educational background
@@ -172,11 +328,10 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
         buttonCamera = (Button) findViewById(R.id.capturebtn);
         buttonGallery = (Button) findViewById(R.id.browsebtn);
         Submit = (Button) findViewById(R.id.submit);
-
-
         buttonCamera.setOnClickListener(this);
         buttonGallery.setOnClickListener(this);
         Submit.setOnClickListener(this);
+
     }
 
     @Override
@@ -190,36 +345,77 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.capturebtn:
                 ClickImageFromCamera();
+            case R.id.date:
+                fromDatePickerDialog.show();
+                break;
+            case R.id.visa_expiry:
+                toDatePickerDialog.show();
+                break;
+            case R.id.visa_grant:
+                tovisagrantedDialog.show();
+                break;
+            case R.id.pass_expiry:
+                topassexpiry.show();
+                break;
+            case R.id.testdate:
+                totestdate.show();
+                break;
+            case R.id.schoolyear:
+                tosyear.show();
+                break;
+            case R.id.highscchoolyear:
+                tohyear.show();
+                break;
+            case R.id.bacheloryear:
+                tobyear.show();
+                break;
+            case R.id.masteryear:
+                tomyear.show();
+                break;
         }
     }
 
     public void submitall() {
-        final String first_name, last_name, country, dob, personal_email, course, citizenship, nationality, pass_no,
-                visa_no, visa_expiry, phone_no, contact, address, email, phone, relation,pass_expiry, gender, image;
-        //personal details
+        final String first_name, last_name, country, city, dob, personal_email, course, citizenship, nationality, pass_no,
+                visa_no, visa_expiry, phone_no, contact, address, email, phone, relation, pass_expiry, gender, image, visa_grant,ephone;
 
+
+//for mail validation defining pattern
+
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        email = Email.getText().toString().trim();
+        personal_email = Personal_Email.getText().toString().trim();
+// onClick of button perform this simplest code.
+        if (email.matches(emailPattern)) {
+            Toast.makeText(main1.this, "valid email address", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(main1.this, "Invalid email address", Toast.LENGTH_SHORT).show();
+        }
+
+
+//email validation
         first_name = Firstname.getText().toString();
         last_name = Lastname.getText().toString();
         country = Country.getText().toString();
-        personal_email = Personal_Email.getText().toString();
-        dob = Dob.toString();
+        city = City.getText().toString();
+        dob = fromDateEtxt.getText().toString();
         //image = ImageView.toString();
         phone_no = Phone.getText().toString();
         course = Course.getText().toString();
         nationality = Nationality.getText().toString();
         citizenship = Citizenship.getText().toString();
         pass_no = Passport_no.getText().toString();
-        pass_expiry =Pass_expiry.getText().toString();
+        pass_expiry = Pass_expiry.getText().toString();
         visa_no = Visa_no.getText().toString();
-        visa_expiry = Visa_expiry.getText().toString();
-        //gender = Gender.getText().toString();
+        visa_grant = Visa_Granted.getText().toString();
+        visa_expiry = toDateEtxt.getText().toString();
+        gender = Gender.getText().toString();
 
 
         //emergency contact
         contact = Name.getText().toString();
-        email = Email.getText().toString();
         address = Address.getText().toString();
-        phone = Phone_no.getText().toString();
+        ephone = Phone_no.getText().toString();
         relation = Relationship.getText().toString();
 
 
@@ -253,97 +449,101 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
 
 
         /**if (!first_name.isEmpty() && !last_name.isEmpty() && !country.isEmpty() && !personal_email.isEmpty() && !phone_no.isEmpty()
-                && !course.isEmpty() && !nationality.isEmpty() && !citizenship.isEmpty() && !pass_no.isEmpty() && !visa_no.isEmpty()
-                && !visa_expiry.isEmpty() && !contact.isEmpty() && !email.isEmpty() && !phone.isEmpty() && !relation.isEmpty()) {
-**/
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
+         && !course.isEmpty() && !nationality.isEmpty() && !citizenship.isEmpty() && !pass_no.isEmpty() && !visa_no.isEmpty()
+         && !visa_expiry.isEmpty() && !contact.isEmpty() && !email.isEmpty() && !phone.isEmpty() && !relation.isEmpty()) {
+         **/
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
 
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        String Response = jsonObject.getString("cropIntent");
-                        Toast.makeText(main1.this, Response, Toast.LENGTH_SHORT).show();
-                        ImageView.setImageResource(0);
-                        ImageView.setVisibility(View.GONE);
-                       // Firstname.setText("");
-                       // Firstname.setVisibility(View.GONE);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(main1.this,response.toString(), Toast.LENGTH_SHORT).show();
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String Response = jsonObject.getString("cropIntent");
+                    Toast.makeText(main1.this, Response, Toast.LENGTH_SHORT).show();
+                    ImageView.setImageResource(0);
+                    ImageView.setVisibility(View.GONE);
+                    // Firstname.setText("");
+                    // Firstname.setVisibility(View.GONE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
+                Toast.makeText(main1.this, response.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
-                    Toast.makeText(main1.this, error.toString(), Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(main1.this, error.toString(), Toast.LENGTH_SHORT).show();
+            }
 
-            }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
 
-                    params.put("country", country);
-                    params.put("dob", dob);
-                    params.put("personal_email", personal_email);
-                    params.put("mobile", phone_no);
-                    params.put("course", course);
-                    params.put("nationality", nationality);
-                    params.put("citizenship", citizenship);
-                    params.put("pass_no", pass_no);
-                    params.put("pass_expiry", pass_expiry);
-                    params.put("visa_no", visa_no);
-                    params.put("visa_expiry", visa_expiry);
-                    //.put("gender", gender);
-                    params.put("status", Selecteditem);
-                    params.put("image", imageToString(bitmap));
-                    params.put("first_name",first_name);
-                    params.put("last_name",last_name);
+                params.put("country", country);
+                params.put("dob", dob);
+                params.put("personal_email", personal_email);
+                params.put("mobile", phone_no);
+                params.put("course", course);
+                params.put("nationality", nationality);
+                params.put("citizenship", citizenship);
+                params.put("pass_no", pass_no);
+                params.put("pass_expiry", pass_expiry);
+                params.put("visa_no", visa_no);
+                params.put("visa_granted_date", visa_grant);
+                params.put("visa_expiry", visa_expiry);
+                params.put("gender", gender);
+                params.put("status", Selecteditem);
+                params.put("image", imageToString(bitmap));
+                params.put("first_name", first_name);
+                params.put("last_name", last_name);
+                params.put("personal_address", city);
 
-                    //educational background
-                    params.put("schoolname", schoolname);
-                    params.put("schoolmarks", schoolmarks);
-                    params.put("schoolyear", schoolyear);
-                    params.put("highschoolname", highschoolname);
-                    params.put("highschoolmarks", highschoolmarks);
-                    params.put("highschoolyear", highshoolyear);
-                    params.put("bachelorname", bachelorname);
-                    params.put("bachelormarks", bachelormarks);
-                    params.put("bacheloryear", bacheloryear);
-                    params.put("mastername", mastername);
-                    params.put("mastermarks", mastermarks);
-                    params.put("masteryear", masteryear);
+                //educational background
+                params.put("schoolname", schoolname);
+                params.put("schoolmarks", schoolmarks);
+                params.put("schoolyear", schoolyear);
+                params.put("highschoolname", highschoolname);
+                params.put("highschoolmarks", highschoolmarks);
+                params.put("highschoolyear", highshoolyear);
+                params.put("bachelorname", bachelorname);
+                params.put("bachelormarks", bachelormarks);
+                params.put("bacheloryear", bacheloryear);
+                params.put("mastername", mastername);
+                params.put("mastermarks", mastermarks);
+                params.put("masteryear", masteryear);
 
-                    //english test
-                    params.put("testname", testname);
-                    params.put("testdate", testdate);
-                    params.put("testreport", testreport);
-                    params.put("overallresult", overallresult);
-                    params.put("reading", reading);
-                    params.put("writing", writing);
-                    params.put("listening", listening);
-                    params.put("speaking", speaking);
+                //english test
+                params.put("testname", testname);
+                params.put("testdate", testdate);
+                params.put("testreport", testreport);
+                params.put("overallresult", overallresult);
+                params.put("reading", reading);
+                params.put("writing", writing);
+                params.put("listening", listening);
+                params.put("speaking", speaking);
 
-                    //emergency contact
-                    params.put("contact", contact);
-                    params.put("relation", relation);
-                    params.put("address", address);
-                    params.put("phone", phone);
-                    params.put("email", email);
-                    return params;
-                }
-            };
-            Mysingleton.getInstance(main1.this).addToRequest(stringRequest);
-        } /**else {
-            Toast.makeText(main1.this,
-                    "Please enter your details!", Toast.LENGTH_LONG)
-                    .show();
-        }
-    } **/
+                //emergency contact
+                params.put("contact", contact);
+                params.put("relation", relation);
+                params.put("address", address);
+                params.put("phone", ephone);
+                params.put("email", email);
+                return params;
+            }
+        };
+        Mysingleton.getInstance(main1.this).addToRequest(stringRequest);
+    }
 
-
+    /**
+     * else {
+     * Toast.makeText(main1.this,
+     * "Please enter your details!", Toast.LENGTH_LONG)
+     * .show();
+     * }
+     * }
+     **/
 
 
     public void ClickImageFromCamera() {
@@ -361,6 +561,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
         startActivityForResult(CamIntent, 0);
 
     }
+
     public void GetImageFromGallery() {
 
         GalIntent = new Intent(Intent.ACTION_PICK,
@@ -390,7 +591,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     Bundle bundle = data.getExtras();
-                    bitmap =bundle.getParcelable("data");
+                    bitmap = bundle.getParcelable("data");
                     ImageView.setImageBitmap(bitmap);
                     ImageView.setVisibility(View.VISIBLE);
                     Name.setVisibility(View.VISIBLE);
@@ -402,6 +603,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
             }
         }
     }
+
     private void uploadImage() {
         StringRequest stringrequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
@@ -436,6 +638,7 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
         };
         Mysingleton.getInstance(main1.this).addToRequest(stringrequest);
     }
+
     public void ImageCropFunction() {
 
         // Image Crop Code
