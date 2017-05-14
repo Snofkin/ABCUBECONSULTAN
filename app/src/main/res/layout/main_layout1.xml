@@ -19,11 +19,13 @@
         android:scrollbarAlwaysDrawVerticalTrack="true">
 
         <RelativeLayout
+            android:id="@+id/group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
             android:orientation="vertical"
-            android:splitMotionEvents="false"
-            android:id="@+id/group">
+            android:splitMotionEvents="false">
 
             <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -39,7 +41,7 @@
                     android:id="@+id/camera"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#3cabdb"
+                    android:background="@color/colorAccent"
                     android:elevation="@dimen/cardview_default_elevation"
                     android:orientation="vertical"
                     tools:context="com.example.amir.abcube.Camera">
@@ -48,9 +50,10 @@
                         android:id="@+id/imageview"
                         android:layout_width="300dp"
                         android:layout_height="200dp"
-                        android:layout_alignParentEnd="true"
-
-                        />
+                        android:layout_alignParentEnd="false"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="20dp"
+                        android:src="@android:drawable/ic_menu_gallery" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -78,7 +81,6 @@
                             android:layout_marginTop="7dp"
                             android:text="Capture"
                             android:theme="@style/AppTheme.Button" />
-
                     </LinearLayout>
 
                 </LinearLayout>
@@ -95,19 +97,19 @@
                 android:layout_marginRight="6dp"
                 android:layout_marginTop="10dp"
                 card_view:cardCornerRadius="2dp"
-                card_view:cardElevation="0.5dp"
-
-                >
+                card_view:cardElevation="0.5dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-
+                    android:background="?attr/colorPrimary"
                     android:elevation="1dp"
                     android:gravity="center_horizontal"
                     android:paddingTop="15dp"
                     android:text="PERSONAL DETAILS"
+                    android:textColor="@android:color/white"
                     android:textSize="18sp"
+                    android:theme="@style/AppTheme"
                     android:typeface="sans" />
 
 
@@ -120,18 +122,19 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/personal_details"
                 android:layout_marginBottom="8dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
 
                 android:elevation="@dimen/cardview_default_elevation"
                 card_view:cardCornerRadius="2dp"
-                card_view:cardElevation="6dp">
+                card_view:cardElevation="4dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="8dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <LinearLayout
                         android:id="@+id/linear1"
@@ -240,6 +243,8 @@
                             android:id="@+id/date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:hint="yyyy-mm-dd"
+                            android:digits="0123456789-"
                             tools:layout_marginLeft="30dp" />
                     </LinearLayout>
 
@@ -341,23 +346,25 @@
                         <RadioGroup
                             android:id="@+id/radio"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:orientation="horizontal">
 
                             <RadioButton
                                 android:id="@+id/male"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:checked="true"
                                 android:enabled="true"
                                 android:text="Male"
-                                tools:layout_marginLeft="30dp" />
+                                tools:layout_marginLeft="40dp" />
 
                             <RadioButton
                                 android:id="@+id/female"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Female"
-                                tools:layout_marginLeft="30dp" />
+                                tools:layout_marginLeft="40dp" />
 
                         </RadioGroup>
                     </LinearLayout>
@@ -401,8 +408,10 @@
 
                         <EditText
                             android:id="@+id/citizenship"
+                            style="@android:style/Widget.DeviceDefault.AutoCompleteTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:hint="Nepali"
                             android:inputType="text|textCapSentences|textAutoComplete"
                             android:singleLine="true"
                             tools:layout_marginLeft="30dp" />
@@ -444,6 +453,7 @@
                             android:id="@+id/pass_expiry"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:hint="yyyy-mm-dd"
                             tools:layout_marginLeft="30dp" />
                     </LinearLayout>
 
@@ -483,6 +493,7 @@
                             android:id="@+id/visa_grant"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:hint="YYYY-MM-DD"
                             android:inputType="none|date" />
                     </LinearLayout>
 
@@ -502,6 +513,7 @@
                             android:id="@+id/visa_expiry"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:hint="YYYY-MM-DD"
                             android:inputType="date"
                             tools:layout_marginLeft="30dp" />
                     </LinearLayout>
@@ -527,11 +539,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:background="@android:color/holo_blue_light"
+                    android:background="?attr/colorPrimary"
                     android:elevation="1dp"
                     android:gravity="center_horizontal"
                     android:paddingTop="15dp"
                     android:text="ENGLISH TEST"
+                    android:textColor="@android:color/white"
+                    android:textColorLink="@android:color/white"
                     android:textSize="18sp"
                     android:typeface="sans" />
             </android.support.v7.widget.CardView>
@@ -542,17 +556,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/test"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:padding="40dp"
                 card_view:cardBackgroundColor="#ffffff"
                 card_view:cardCornerRadius="2dp"
-                card_view:cardElevation="8dp">
+                card_view:cardElevation="4dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_margin="8dp"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <LinearLayout
                         android:id="@+id/testname_layout"
@@ -569,7 +586,8 @@
                             android:id="@+id/testname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textCapWords" />
+                            android:hint="TOFEL"
+                            android:inputType="textCapCharacters|textCapWords" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -719,54 +737,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardview1"
-                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-                android:layout_marginTop="10dp"
+                card_view:cardBackgroundColor="#ffffff"
                 card_view:cardCornerRadius="2dp"
-                card_view:cardElevation="0.5dp"
-
-                >
+                card_view:cardElevation="4dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:background="@android:color/holo_blue_light"
+                    android:background="@color/colorPrimary"
                     android:elevation="1dp"
                     android:gravity="center_horizontal"
                     android:paddingTop="15dp"
                     android:text="EDUCATIONAL BAKGROUND"
+                    android:textColor="@color/cardview_light_background"
                     android:textSize="18sp"
                     android:typeface="sans" />
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/cardview2"
+
+            <LinearLayout
+                android:id="@+id/educationl_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/educational_background"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
-                android:padding="20dp"
-                card_view:cardBackgroundColor="#ffffff"
-                card_view:cardCornerRadius="2dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:padding="0dp"
+                android:splitMotionEvents="false">
 
-
-                card_view:cardElevation="5dp">
-
-                <RelativeLayout
+                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/schoolcardview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_below="@id/educational_background"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
                     android:padding="20dp"
-                    android:splitMotionEvents="false">
+                    card_view:cardBackgroundColor="#ffffff"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardElevation="4dp">
 
                     <LinearLayout
                         android:id="@+id/school"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:background="?attr/colorBackgroundFloating"
                         android:orientation="vertical"
                         android:padding="10dp">
@@ -837,17 +856,34 @@
                                 android:id="@+id/schoolyear"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:hint="yyyy"
                                 android:inputType="date"
                                 tools:layout_marginLeft="30dp" />
                         </LinearLayout>
                     </LinearLayout>
 
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/highcarddview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/schoolcardview"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:padding="20dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardElevation="4dp">
 
                     <LinearLayout
                         android:id="@+id/highschool"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/school"
+                        android:layout_marginBottom="10dp"
                         android:background="@android:color/background_light"
                         android:orientation="vertical"
                         android:padding="10dp">
@@ -917,18 +953,35 @@
                                 android:id="@+id/highscchoolyear"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:hint="yyyy"
+                                android:digits="0123456789"
                                 android:inputType="date"
                                 tools:layout_marginLeft="30dp" />
                         </LinearLayout>
 
                     </LinearLayout>
+                </android.support.v7.widget.CardView>
 
+                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/bachelorcardview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/highcarddview"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:padding="20dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardElevation="4dp">
 
                     <LinearLayout
                         android:id="@+id/bachelor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/highschool"
+                        android:layout_marginBottom="10dp"
                         android:background="?attr/colorBackgroundFloating"
                         android:orientation="vertical"
                         android:padding="10dp">
@@ -997,19 +1050,36 @@
 
                             <EditText
                                 android:id="@+id/bacheloryear"
-                                android:layout_width="match_parent"
+                                android:layout_width="228dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="30dp"
+                                android:hint="yyyy"
                                 android:inputType="date" />
                         </LinearLayout>
 
                     </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/mastercardview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bachelorcardview"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:padding="20dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardElevation="4dp">
 
                     <LinearLayout
                         android:id="@+id/master"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/bachelor"
+                        android:layout_marginBottom="10dp"
                         android:background="?attr/colorBackgroundFloating"
                         android:orientation="vertical"
                         android:padding="10dp">
@@ -1074,44 +1144,47 @@
                             <TextView
                                 android:layout_width="101dp"
                                 android:layout_height="wrap_content"
-                                android:text="Year of Award" />
+                                android:text="Year of Award"
+                                />
 
                             <EditText
                                 android:id="@+id/masteryear"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="30dp"
+                                android:hint="yyyy"
+                                android:digits="0123456789"
                                 android:inputType="date" />
                         </LinearLayout>
                     </LinearLayout>
 
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
 
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/emergency_numbers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cardview2"
-                android:layout_marginBottom="4dp"
+                android:layout_below="@+id/educationl_layout"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                card_view:cardBackgroundColor="#ffffff"
                 card_view:cardCornerRadius="2dp"
-                card_view:cardElevation="0.5dp"
-
-                >
+                card_view:cardElevation="4dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:background="@android:color/holo_blue_light"
+                    android:background="?attr/colorAccent"
                     android:elevation="1dp"
                     android:gravity="center_horizontal"
                     android:paddingTop="15dp"
                     android:text="EMERGENCY CONTACT"
+                    android:textColor="@color/cardview_light_background"
                     android:textSize="18sp"
                     android:typeface="sans" />
             </android.support.v7.widget.CardView>
@@ -1122,15 +1195,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/emergency_numbers"
-                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-                android:padding="20dp"
-                card_view:cardBackgroundColor="#ffccff"
+                android:padding="40dp"
+                card_view:cardBackgroundColor="#ffffff"
                 card_view:cardCornerRadius="2dp"
-
-                card_view:cardElevation="5dp">
-
+                card_view:cardElevation="4dp">
                 <RelativeLayout
                     android:id="@+id/layout1"
                     android:layout_width="match_parent"
@@ -1233,23 +1303,52 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress|textWebEmailAddress" />
-
-
                     </LinearLayout>
-
-
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
 
-            <Button
-                android:id="@+id/submit"
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/submitview"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cardview3"
-                android:layout_centerHorizontal="true"
-                android:text="Submit" />
+                android:layout_below="@id/cardview3"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="20dp"
+                android:padding="20dp"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="2dp"
+                card_view:cardElevation="4dp"
+                >
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/submit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Submit"
+                        android:theme="@style/AppTheme.Button"
+                        android:layout_marginRight="40dp"/>
+
+                    <Button
+                        android:id="@+id/clear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Clear"
+                        android:theme="@style/AppTheme.Button" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </RelativeLayout>
 
     </ScrollView>

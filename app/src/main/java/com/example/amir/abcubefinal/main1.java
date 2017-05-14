@@ -47,10 +47,10 @@ import java.util.Map;
 
 
 public class main1 extends AppCompatActivity implements View.OnClickListener {
-    String server_url = "http://192.168.0.111/adcube/android.php";
+    String server_url = "http://192.168.0.101/adcube/android.php";
     ImageView ImageView;
     ViewGroup viewGroup;
-    Button buttonCamera, buttonGallery;
+    Button buttonCamera, buttonGallery,Clear;
     File file;
     Uri uri;
     String date;
@@ -66,7 +66,6 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
     DatePicker Dob;
     Button Submit;
     RadioButton Gender;
-
     EditText fromDateEtxt, toDateEtxt;
     DatePickerDialog fromDatePickerDialog;
     DatePickerDialog toDatePickerDialog;
@@ -94,22 +93,15 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout1);
-
-
         //for date picker
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         dateFormatter2 = new SimpleDateFormat("yyyy", Locale.US);
-
         findViewsById();
-
         setDateTimeField();
     }
-
     public void findViewsById() {
         fromDateEtxt = (EditText) findViewById(R.id.date);
         fromDateEtxt.setInputType(InputType.TYPE_NULL);
-        fromDateEtxt.requestFocus();
-
         toDateEtxt = (EditText) findViewById(R.id.visa_expiry);
         toDateEtxt.setInputType(InputType.TYPE_NULL);
 
@@ -330,9 +322,11 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
         buttonCamera = (Button) findViewById(R.id.capturebtn);
         buttonGallery = (Button) findViewById(R.id.browsebtn);
         Submit = (Button) findViewById(R.id.submit);
+        Clear = (Button) findViewById(R.id.clear);
         buttonCamera.setOnClickListener(this);
         buttonGallery.setOnClickListener(this);
         Submit.setOnClickListener(this);
+        Clear.setOnClickListener(this);
 
     }
 
@@ -342,11 +336,15 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
             case R.id.browsebtn:
                 GetImageFromGallery();
                 break;
+            case R.id.capturebtn:
+                ClickImageFromCamera();
+                break;
             case R.id.submit:
                 submitall();
                 break;
-            case R.id.capturebtn:
-                ClickImageFromCamera();
+            case R.id.clear:
+                clearall();
+                break;
             case R.id.date:
                 fromDatePickerDialog.show();
                 break;
@@ -376,58 +374,52 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
                 break;
         }
     }
+public void clearall(){
+    Firstname.setText("");
+    Lastname.setText("");
+    Country.setText("");
+    City.setText("");
+    Email.setText("");
+    Personal_Email.setText("");
+    Phone.setText("");
+    Phone_no.setText("");
+    Course.setText("");
+    Nationality.setText("");
+    Citizenship.setText("");
+    Passport_no.setText("");
+    Pass_expiry.setText("");
+    Visa_no.setText("");
+    Visa_Granted.setText("");
+    toDateEtxt.setText("");
+    samplespinner.setSelection(0);
+    Testname.setText("");
+    Testdate.setText("");
+    Testreport.setText("");
+    Overallresult.setText("");
+    Reading.setText("");
+    Writing.setText("");
+    Listening.setText("");
+    Speaking.setText("");
+    Schoolname.setText("");
+    Schoolmarks.setText("");
+    Schoolyear.setText("");
+    Highschoolname.setText("");
+    Highschoolmarks.setText("");
+    Highschoolyear.setText("");
+    Bachelorname.setText("");
+    Bachelormarks.setText("");
+    Bacheloryear.setText("");
+    Mastername.setText("");
+    Mastermarks.setText("");
+    Masteryear.setText("");
+    Name.setText("");
+    Relationship.setText("");
+    Address.setText("");
+    Phone_no.setText("");
+    Email.setText("");
 
+}
     public void submitall() {
-        Firstname.setText("");
-        Lastname.setText("");
-        Country.setText("");
-        City.setText("");
-        Email.setText("");
-        Personal_Email.setText("");
-        Phone.setText("");
-        Phone_no.setText("");
-        Course.setText("");
-        Nationality.setText("");
-        Citizenship.setText("");
-        Passport_no.setText("");
-        Pass_expiry.setText("");
-        Visa_no.setText("");
-        Visa_Granted.setText("");
-        toDateEtxt.setText("");
-
-        samplespinner.setSelection(0);
-        Testname.setText("");
-        Testdate.setText("");
-        Testreport.setText("");
-        Overallresult.setText("");
-        Reading.setText("");
-        Writing.setText("");
-        Listening.setText("");
-        Speaking.setText("");
-        Schoolname.setText("");
-        Schoolmarks.setText("");
-        Schoolyear.setText("");
-        Highschoolname.setText("");
-        Highschoolmarks.setText("");
-        Highschoolyear.setText("");
-        Bachelorname.setText("");
-        Bachelormarks.setText("");
-        Bacheloryear.setText("");
-        Mastername.setText("");
-        Mastermarks.setText("");
-        Masteryear.setText("");
-        Name.setText("");
-        Relationship.setText("");
-        Address.setText("");
-        Phone_no.setText("");
-        Email.setText("");
-
-
-
-
-
-
-
         final String first_name, last_name, country, city, dob, personal_email, course, citizenship, nationality, pass_no,
                 visa_no, visa_expiry, phone_no, contact, address, email, phone, relation, pass_expiry, gender, image, visa_grant, ephone;
 
@@ -439,7 +431,6 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
         personal_email = Personal_Email.getText().toString().trim();
 // onClick of button perform this simplest code.
         if (email.matches(emailPattern)) {
-            Toast.makeText(main1.this, "valid email address", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(main1.this, "Invalid email address", Toast.LENGTH_SHORT).show();
         }
@@ -500,126 +491,102 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
         masteryear = Masteryear.getText().toString();
 
 
-        /**if (!first_name.isEmpty() && !last_name.isEmpty() && !country.isEmpty() && !personal_email.isEmpty() && !phone_no.isEmpty()
-         && !course.isEmpty() && !nationality.isEmpty() && !citizenship.isEmpty() && !pass_no.isEmpty() && !visa_no.isEmpty()
-         && !visa_expiry.isEmpty() && !contact.isEmpty() && !email.isEmpty() && !phone.isEmpty() && !relation.isEmpty()) {
-         **/
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
+        if (!first_name.isEmpty() && !last_name.isEmpty() && !country.isEmpty() && !personal_email.isEmpty() && !phone_no.isEmpty()
+                && !course.isEmpty() && !nationality.isEmpty() && !citizenship.isEmpty() && !pass_no.isEmpty() && !visa_no.isEmpty()
+                && !visa_expiry.isEmpty() && !contact.isEmpty() && !email.isEmpty() && !ephone.isEmpty() && !relation.isEmpty()) {
 
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String Response = jsonObject.getString("cropIntent");
-                    Toast.makeText(main1.this, Response, Toast.LENGTH_SHORT).show();
-                    ImageView.setImageResource(0);
-                    ImageView.setVisibility(View.GONE);
-                    // Firstname.setText("");
-                    // Firstname.setVisibility(View.GONE);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String Response = jsonObject.getString("cropIntent");
+                        Toast.makeText(main1.this, Response, Toast.LENGTH_SHORT).show();
+                        ImageView.setImageResource(0);
+                        ImageView.setVisibility(View.GONE);
+                        // Firstname.setText("");
+                        // Firstname.setVisibility(View.GONE);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(main1.this, response.toString(), Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(main1.this, response.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(main1.this, error.toString(), Toast.LENGTH_SHORT).show();
-            }
-
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-
-                params.put("country", country);
-                params.put("dob", dob);
-                params.put("personal_email", personal_email);
-                params.put("mobile", phone_no);
-                params.put("course", course);
-                params.put("nationality", nationality);
-                params.put("citizenship", citizenship);
-                params.put("pass_no", pass_no);
-                params.put("pass_expiry", pass_expiry);
-                params.put("visa_no", visa_no);
-                params.put("visa_granted_date", visa_grant);
-                params.put("visa_expiry", visa_expiry);
-                params.put("gender", gender);
-                params.put("status", Selecteditem);
-                params.put("image", imageToString(bitmap));
-                params.put("first_name", first_name);
-                params.put("last_name", last_name);
-                params.put("personal_address", city);
-
-                //educational background
-                params.put("schoolname", schoolname);
-                params.put("schoolmarks", schoolmarks);
-                params.put("schoolyear", schoolyear);
-                params.put("highschoolname", highschoolname);
-                params.put("highschoolmarks", highschoolmarks);
-                params.put("highschoolyear", highshoolyear);
-                params.put("bachelorname", bachelorname);
-                params.put("bachelormarks", bachelormarks);
-                params.put("bacheloryear", bacheloryear);
-                params.put("mastername", mastername);
-                params.put("mastermarks", mastermarks);
-                params.put("masteryear", masteryear);
-
-                //english test
-                params.put("testname", testname);
-                params.put("testdate", testdate);
-                params.put("testreport", testreport);
-                params.put("overallresult", overallresult);
-                params.put("reading", reading);
-                params.put("writing", writing);
-                params.put("listening", listening);
-                params.put("speaking", speaking);
-
-                //emergency contact
-                params.put("contact", contact);
-                params.put("relation", relation);
-                params.put("address", address);
-                params.put("phone", ephone);
-                params.put("email", email);
-                return params;
-            }
-        };
-        Mysingleton.getInstance(main1.this).addToRequest(stringRequest);
-    }
-
-    public static void resetForm(ViewGroup group) {
-        {
-            for (int i = 0, count = group.getChildCount(); i < count; ++i) {
-                View view = group.getChildAt(i);
-                if (view instanceof EditText) {
-                    ((EditText) view).getText().clear();
+                    Toast.makeText(main1.this, error.toString(), Toast.LENGTH_SHORT).show();
                 }
 
-                if (view instanceof RadioGroup) {
-                    ((RadioButton) ((RadioGroup) view).getChildAt(0)).setChecked(true);
-                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
 
-                if (view instanceof Spinner) {
-                    ((Spinner) view).setSelection(0);
-                }
+                    params.put("country", country);
+                    params.put("dob", dob);
+                    params.put("personal_email", personal_email);
+                    params.put("mobile", phone_no);
+                    params.put("course", course);
+                    params.put("nationality", nationality);
+                    params.put("citizenship", citizenship);
+                    params.put("pass_no", pass_no);
+                    params.put("pass_expiry", pass_expiry);
+                    params.put("visa_no", visa_no);
+                    params.put("visa_granted_date", visa_grant);
+                    params.put("visa_expiry", visa_expiry);
+                    params.put("gender", gender);
+                    params.put("status", Selecteditem);
+                    params.put("image", imageToString(bitmap));
+                    params.put("first_name", first_name);
+                    params.put("last_name", last_name);
+                    params.put("personal_address", city);
 
-                if (view instanceof ViewGroup && (((ViewGroup) view).getChildCount() > 0))
-                    resetForm((ViewGroup) view);
-            }
+                    //educational background
+                    params.put("schoolname", schoolname);
+                    params.put("schoolmarks", schoolmarks);
+                    params.put("schoolyear", schoolyear);
+                    params.put("highschoolname", highschoolname);
+                    params.put("highschoolmarks", highschoolmarks);
+                    params.put("highschoolyear", highshoolyear);
+                    params.put("bachelorname", bachelorname);
+                    params.put("bachelormarks", bachelormarks);
+                    params.put("bacheloryear", bacheloryear);
+                    params.put("mastername", mastername);
+                    params.put("mastermarks", mastermarks);
+                    params.put("masteryear", masteryear);
+
+                    //english test
+                    params.put("testname", testname);
+                    params.put("testdate", testdate);
+                    params.put("testreport", testreport);
+                    params.put("overallresult", overallresult);
+                    params.put("reading", reading);
+                    params.put("writing", writing);
+                    params.put("listening", listening);
+                    params.put("speaking", speaking);
+
+                    //emergency contact
+                    params.put("contact", contact);
+                    params.put("relation", relation);
+                    params.put("address", address);
+                    params.put("phone", ephone);
+                    params.put("email", email);
+                    return params;
+                }
+            };
+            Mysingleton.getInstance(main1.this).addToRequest(stringRequest);
+
+        } else if(pass_no==pass_no){
+            Toast.makeText(main1.this, "passport number already exist", Toast.LENGTH_LONG).show();
         }
+        else {
+            Toast.makeText(main1.this, "please fill your detail properly", Toast.LENGTH_LONG).show();
+        }
+
     }
-
-    /**
-     * else {
-     * Toast.makeText(main1.this,
-     * "Please enter your details!", Toast.LENGTH_LONG)
-     * .show();
-     * }
-     * }
-     **/
-
-
     public void ClickImageFromCamera() {
 
         CamIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -726,7 +693,6 @@ public class main1 extends AppCompatActivity implements View.OnClickListener {
             CropIntent.putExtra("outputY", 180);
             CropIntent.putExtra("aspectX", 3);
             CropIntent.putExtra("aspectY", 4);
-
             CropIntent.putExtra("scaleUpIfNeeded", true);
             CropIntent.putExtra("return-data", true);
 
